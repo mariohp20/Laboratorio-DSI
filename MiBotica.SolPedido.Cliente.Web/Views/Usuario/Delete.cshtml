@@ -1,0 +1,39 @@
+﻿@model MiBotica.SolPedido.Entidades.Core.Usuario
+
+@{
+    ViewBag.Title = "Eliminar Usuario";
+}
+
+<h2>Eliminar Usuario</h2>
+
+<h3>¿Está seguro que desea eliminar este usuario?</h3>
+<div>
+    <h4>Información del Usuario</h4>
+    <hr />
+
+    <div class="alert alert-warning">
+        <strong>¡Advertencia!</strong> Esta acción no se puede deshacer.
+    </div>
+
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.IdUsuario):</dt>
+        <dd>@Html.DisplayFor(model => model.IdUsuario)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.CodUsuario):</dt>
+        <dd>@Html.DisplayFor(model => model.CodUsuario)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Nombres):</dt>
+        <dd>@Html.DisplayFor(model => model.Nombres)</dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.IdUsuario)
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar definitivamente" class="btn btn-danger" />
+            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+        </div>
+    }
+</div>

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<MiBotica.SolPedido.Entidades.Core.Usuario>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@*<h2>Index</h2>*@
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Lista de Usuarios</h3>
+        <div class="box-tools">
+            <div class="input-group input-group-sm" style="width: 250px;">
+                <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                    <a href="@Url.Action("Create", "Usuario")" class="btn btn-primary">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box-body table-responsive no-padding">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdUsuario)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CodUsuario)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombres)
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.ClaveTexto)*@
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdUsuario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CodUsuario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombres)
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.ClaveTexto)*@
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id=item.IdUsuario }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.IdUsuario }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.IdUsuario  })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+</div>
