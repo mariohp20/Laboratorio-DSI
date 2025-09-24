@@ -5,20 +5,182 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*<h2>Index</h2>*@
+<style>
+    /* Estilos específicos para la tabla de usuarios */
+    .usuario-table {
+        border: none;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        background: white;
+    }
 
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
-<div class="box">
-    <div class="box-header">
+        .usuario-table thead {
+            background: linear-gradient(135deg, #3c8dbc 0%, #367fa9 100%);
+            color: white;
+        }
+
+        .usuario-table th {
+            border: none;
+            padding: 15px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .usuario-table td {
+            border-color: #ecf0f5;
+            padding: 15px;
+            vertical-align: middle;
+        }
+
+        .usuario-table tbody tr {
+            transition: all 0.2s ease;
+        }
+
+            .usuario-table tbody tr:hover {
+                background-color: #f8f9fa;
+                transform: translateY(-1px);
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+    .action-links {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .action-link {
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.2s;
+        border: 1px solid transparent;
+        display: inline-block;
+    }
+
+    .action-link-edit {
+        background-color: #f39c12;
+        color: white;
+    }
+
+        .action-link-edit:hover {
+            background-color: #e67e22;
+            color: white;
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+
+    .action-link-details {
+        background-color: #00a65a;
+        color: white;
+    }
+
+        .action-link-details:hover {
+            background-color: #008d4c;
+            color: white;
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+
+    .action-link-delete {
+        background-color: #dd4b39;
+        color: white;
+    }
+
+        .action-link-delete:hover {
+            background-color: #d33724;
+            color: white;
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+
+    .usuario-box {
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .usuario-box-header {
+        background: linear-gradient(135deg, #3c8dbc 0%, #367fa9 100%);
+        color: white;
+        border-radius: 8px 8px 0 0;
+        border-bottom: none;
+        padding: 15px 20px;
+    }
+
+    .usuario-search-input {
+        border: 1px solid #d2d6de;
+        border-radius: 4px;
+        transition: all 0.3s;
+    }
+
+        .usuario-search-input:focus {
+            border-color: #3c8dbc;
+            box-shadow: 0 0 0 2px rgba(60, 141, 188, 0.2);
+        }
+
+    .usuario-search-btn {
+        background-color: #3c8dbc;
+        border-color: #3c8dbc;
+        color: white;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+        .usuario-search-btn:hover {
+            background-color: #367fa9;
+            border-color: #367fa9;
+        }
+
+    .usuario-add-btn {
+        background-color: #00a65a;
+        border-color: #00a65a;
+        color: white;
+        border-radius: 4px;
+        margin-left: 5px;
+        transition: background-color 0.3s;
+    }
+
+        .usuario-add-btn:hover {
+            background-color: #008d4c;
+            border-color: #008d4c;
+        }
+
+    .usuario-box-header h3 {
+        margin: 0;
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+
+    @@media (max-width: 768px) {
+        .action-links {
+            flex-direction: column;
+        }
+
+        .action-link {
+            text-align: center;
+            margin: 2px 0;
+        }
+
+        .box-tools .input-group {
+            width: 100% !important;
+        }
+    }
+</style>
+
+<div class="box usuario-box">
+    <div class="box-header usuario-box-header">
         <h3 class="box-title">Lista de Usuarios</h3>
         <div class="box-tools">
             <div class="input-group input-group-sm" style="width: 250px;">
-                <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                <input type="text" name="table_search" class="form-control pull-right usuario-search-input" placeholder="Buscar usuario...">
                 <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                    <a href="@Url.Action("Create", "Usuario")" class="btn btn-primary">
+                    <button type="submit" class="btn btn-default usuario-search-btn">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <a href="@Url.Action("Create", "Usuario")" class="btn btn-primary usuario-add-btn">
                         <i class="fa fa-plus"></i>
                     </a>
                 </div>
@@ -26,83 +188,56 @@
         </div>
     </div>
     <div class="box-body table-responsive no-padding">
-        <table class="table table-bordered table-hover">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdUsuario)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CodUsuario)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Nombres)
-                </th>
-                <th>
-                    @*@Html.DisplayNameFor(model => model.ClaveTexto)*@
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
+        <table class="table table-bordered table-hover usuario-table">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdUsuario)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CodUsuario)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombres)
-                    </td>
-                    <td>
-                        @*@Html.DisplayFor(modelItem => item.ClaveTexto)*@
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id=item.IdUsuario }) |
-                        @Html.ActionLink("Details", "Details", new { id=item.IdUsuario }) |
-                        @Html.ActionLink("Delete", "Delete", new { id=item.IdUsuario  })
-                    </td>
+                    <th>@Html.DisplayNameFor(model => model.IdUsuario)</th>
+                    <th>@Html.DisplayNameFor(model => model.CodUsuario)</th>
+                    <th>@Html.DisplayNameFor(model => model.Nombres)</th>
+                    <th>Acciones</th>
                 </tr>
-            }
-
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.IdUsuario)</td>
+                        <td>@Html.DisplayFor(modelItem => item.CodUsuario)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Nombres)</td>
+                        <td>
+                            <div class="action-links">
+                                @Html.ActionLink("Editar", "Edit", new { id = item.IdUsuario }, new { @class = "action-link action-link-edit" })
+                                @Html.ActionLink("Detalles", "Details", new { id = item.IdUsuario }, new { @class = "action-link action-link-details" })
+                                @Html.ActionLink("Eliminar", "Delete", new { id = item.IdUsuario }, new { @class = "action-link action-link-delete" })
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
         </table>
-
     </div>
 </div>
 
-@section scripts {
-    <script>
-        $(document).ready(function () {
-            // Funcionalidad de búsqueda en tiempo real
-            $('input[name="table_search"]').on('keyup', function () {
-                var searchText = $(this).val().toLowerCase();
-                $('.usuario-table tbody tr').each(function () {
-                    var rowText = $(this).text().toLowerCase();
-                    if (rowText.indexOf(searchText) === -1) {
-                        $(this).hide();
-                    } else {
-                        $(this).show();
-                    }
-                });
-            });
-
-            // Confirmación para eliminar
-            $('.action-link-delete').on('click', function (e) {
-                if (!confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
-                    e.preventDefault();
+<script>
+    $(document).ready(function () {
+        // Funcionalidad de búsqueda en tiempo real
+        $('input[name="table_search"]').on('keyup', function () {
+            var searchText = $(this).val().toLowerCase();
+            $('.usuario-table tbody tr').each(function () {
+                var rowText = $(this).text().toLowerCase();
+                if (rowText.indexOf(searchText) === -1) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
                 }
             });
-
-            // Efecto hover mejorado
-            $('.usuario-table tbody tr').hover(
-                function () {
-                    $(this).css('transition', 'all 0.2s ease');
-                },
-                function () {
-                    $(this).css('transform', 'translateY(0)');
-                }
-            );
         });
-    </script>
-}
+
+        // Confirmación para eliminar
+        $('.action-link-delete').on('click', function (e) {
+            if (!confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
