@@ -70,3 +70,39 @@
 
     </div>
 </div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // Funcionalidad de búsqueda en tiempo real
+            $('input[name="table_search"]').on('keyup', function () {
+                var searchText = $(this).val().toLowerCase();
+                $('.usuario-table tbody tr').each(function () {
+                    var rowText = $(this).text().toLowerCase();
+                    if (rowText.indexOf(searchText) === -1) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                });
+            });
+
+            // Confirmación para eliminar
+            $('.action-link-delete').on('click', function (e) {
+                if (!confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+                    e.preventDefault();
+                }
+            });
+
+            // Efecto hover mejorado
+            $('.usuario-table tbody tr').hover(
+                function () {
+                    $(this).css('transition', 'all 0.2s ease');
+                },
+                function () {
+                    $(this).css('transform', 'translateY(0)');
+                }
+            );
+        });
+    </script>
+}
